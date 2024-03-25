@@ -13,11 +13,11 @@ import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
-class TemplateManageServiceTest {
+class TemplateManageServiceTests {
     private final TemplateManageService service;
     private final TemplateManagePort port;
 
-    private TemplateManageServiceTest() {
+    private TemplateManageServiceTests() {
         port = Mockito.mock(TemplateManagePort.class);
         service = new TemplateManageService(port);
     }
@@ -27,8 +27,8 @@ class TemplateManageServiceTest {
         EmailTemplate template = EmailTemplate.create(
                 "TEMPLATE_ID_001",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
-                Sender.from(Email.of("sender", "sender@test.com")),
-                List.of(Receiver.from(Email.of("receiver", "receiver@test.com")))
+                Sender.from(Email.from("sender@test.com")),
+                List.of(Receiver.from(Email.from("receiver@test.com")))
         );
         Mockito.when(port.create(any())).thenReturn(template);
 

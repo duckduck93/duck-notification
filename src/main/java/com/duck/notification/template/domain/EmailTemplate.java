@@ -20,4 +20,8 @@ public class EmailTemplate extends Template<Email> {
     public static EmailTemplate create(String name, String content, Sender<Email> sender, List<Receiver<Email>> receivers) {
         return new EmailTemplate(IdGenerator.generate(String.class), name, content, "N", sender, receivers);
     }
+
+    public static EmailTemplate bind(String id, String name, String content, String useYn, Sender<Email> sender, List<Receiver<Email>> receivers) {
+        return new EmailTemplate(id, name, content, useYn, sender, receivers);
+    }
 }
