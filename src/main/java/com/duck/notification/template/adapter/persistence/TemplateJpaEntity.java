@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -34,11 +35,14 @@ public class TemplateJpaEntity {
     private List<TemplateReceiverJpaEntity> receivers;
 
     public static <T extends Template<?>> TemplateJpaEntity fromTemplate(T template) {
-        return new TemplateJpaEntity(
+        TemplateJpaEntity entity = new TemplateJpaEntity(
                 template.getId(), template.getName(), template.getType(), template.getContent(), template.getUseYn(),
-                template.getSender().getValue().toString(),
-                template.getReceivers().stream().map(TemplateReceiverJpaEntity::fromReceiver).toList()
+                template.getSender().getValue().toString(), Collections.emptyList()
         );
+        entity.receivers = template.getReceivers().stream()
+                .map(receiver -> TemplateReceiverJpaEntity.fromReceiver(receiver, entity))
+                .toList();
+        return entity;
     }
 
     public <T extends Template<?>> T toTemplate() {

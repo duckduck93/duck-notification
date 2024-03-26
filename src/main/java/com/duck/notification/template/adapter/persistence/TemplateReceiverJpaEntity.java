@@ -18,10 +18,10 @@ public class TemplateReceiverJpaEntity {
     @Enumerated(EnumType.STRING)
     private Receiver.Type type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private TemplateJpaEntity template;
 
-    public static TemplateReceiverJpaEntity fromReceiver(Receiver<?> receiver) {
-        return new TemplateReceiverJpaEntity(receiver.getValue().toString(), receiver.getType(), null);
+    public static TemplateReceiverJpaEntity fromReceiver(Receiver<?> receiver, TemplateJpaEntity templateEntity) {
+        return new TemplateReceiverJpaEntity(receiver.getValue().toString(), receiver.getType(), templateEntity);
     }
 }

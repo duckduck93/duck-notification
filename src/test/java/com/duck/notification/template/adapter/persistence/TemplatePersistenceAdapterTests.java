@@ -4,6 +4,7 @@ import com.duck.notification.core.model.Email;
 import com.duck.notification.message.domain.Receiver;
 import com.duck.notification.message.domain.Sender;
 import com.duck.notification.template.domain.EmailTemplate;
+import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import java.util.List;
 @DataJpaTest
 @EnableJpaRepositories
 class TemplatePersistenceAdapterTests {
+    @Autowired
+    private EntityManager entityManager;
     @Autowired
     private TemplateJpaRepository templateJpaRepository;
     private TemplatePersistenceAdapter adapter;
@@ -38,6 +41,8 @@ class TemplatePersistenceAdapterTests {
                 )
         );
         EmailTemplate created = adapter.create(template);
+        entityManager.clear();
+
         Assertions.assertThat(created).isInstanceOf(EmailTemplate.class);
         Assertions.assertThat(created.getId()).isEqualTo("TEMPLATE_ID_001");
         Assertions.assertThat(created.getName()).isEqualTo("TEMPLATE_NAME_001");
