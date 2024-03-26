@@ -10,10 +10,6 @@ public class Receiver<T> {
     private T value;
     private Type type;
 
-    public static <T> Receiver<T> from(T value) {
-        return new Receiver<>(value, Type.TO);
-    }
-
     public static <T> Receiver<T> of(T value, Type type) {
         return new Receiver<>(value, type);
     }

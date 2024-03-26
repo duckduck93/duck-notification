@@ -28,7 +28,7 @@ class TemplateManageServiceTests {
                 "TEMPLATE_ID_001",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 Sender.from(Email.from("sender@test.com")),
-                List.of(Receiver.from(Email.from("receiver@test.com")))
+                List.of(Receiver.of(Email.from("receiver@test.com"), Receiver.Type.TO))
         );
         Mockito.when(port.create(any())).thenReturn(template);
 

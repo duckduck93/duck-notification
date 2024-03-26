@@ -33,8 +33,8 @@ class TemplatePersistenceAdapterTests {
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 Sender.from(Email.from("sender@test.com")),
                 List.of(
-                        Receiver.from(Email.from("receiver@test.com")),
-                        Receiver.from(Email.from("receiver2@test.com"))
+                        Receiver.of(Email.from("receiver@test.com"), Receiver.Type.TO),
+                        Receiver.of(Email.from("receiver2@test.com"), Receiver.Type.TO)
                 )
         );
         EmailTemplate created = adapter.create(template);

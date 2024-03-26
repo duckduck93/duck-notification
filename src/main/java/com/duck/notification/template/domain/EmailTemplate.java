@@ -9,19 +9,19 @@ import com.duck.notification.message.domain.Sender;
 import java.util.List;
 
 public class EmailTemplate extends Template<Email> {
-    protected EmailTemplate(String id, String name, String content, String useYn, Sender<Email> sender, List<Receiver<Email>> receivers) {
+    protected EmailTemplate(String id, String name, String content, Boolean useYn, Sender<Email> sender, List<Receiver<Email>> receivers) {
         super(id, name, Message.Type.EMAIL, content, useYn, sender, receivers);
     }
 
     public static EmailTemplate create(String id, String name, String content, Sender<Email> sender, List<Receiver<Email>> receivers) {
-        return new EmailTemplate(id, name, content, "Y", sender, receivers);
+        return new EmailTemplate(id, name, content, true, sender, receivers);
     }
 
     public static EmailTemplate create(String name, String content, Sender<Email> sender, List<Receiver<Email>> receivers) {
-        return new EmailTemplate(IdGenerator.generate(String.class), name, content, "N", sender, receivers);
+        return new EmailTemplate(IdGenerator.generate(String.class), name, content, true, sender, receivers);
     }
 
-    public static EmailTemplate bind(String id, String name, String content, String useYn, Sender<Email> sender, List<Receiver<Email>> receivers) {
+    public static EmailTemplate bind(String id, String name, String content, Boolean useYn, Sender<Email> sender, List<Receiver<Email>> receivers) {
         return new EmailTemplate(id, name, content, useYn, sender, receivers);
     }
 }

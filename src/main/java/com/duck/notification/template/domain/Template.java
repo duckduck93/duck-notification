@@ -19,13 +19,13 @@ public abstract class Template<T> {
     private String name;
     private Message.Type type;
     private String content;
-    private String useYn;
+    private Boolean useYn;
 
     private Sender<T> sender;
     private List<Receiver<T>> receivers;
     private List<String> contentVariables;
 
-    protected Template(String id, String name, Message.Type type, String content, String useYn, Sender<T> sender, List<Receiver<T>> receivers) {
+    protected Template(String id, String name, Message.Type type, String content, Boolean useYn, Sender<T> sender, List<Receiver<T>> receivers) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -52,7 +52,7 @@ public abstract class Template<T> {
         return contentVariables;
     }
 
-    public void updateUse(String useYn) {
+    public void updateUse(Boolean useYn) {
         this.useYn = useYn;
     }
 

@@ -27,7 +27,7 @@ public class TemplateJpaEntity {
     private Message.Type type;
 
     private String content;
-    private String useYn;
+    private Boolean useYn;
 
     private String sender;
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,20 +42,13 @@ public class TemplateJpaEntity {
     }
 
     public <T extends Template<?>> T toTemplate() {
-        return switch (type) {
-            case EMAIL -> ((Class<T>) EmailTemplate.class).cast(EmailTemplate.bind(
-                    id,
-                    name,
-                    content,
-                    useYn,
-                    Sender.from(Email.from(sender)),
-                    receivers.stream()
-                            .map(TemplateReceiverJpaEntity::getReceiver)
-                            .map(Email::from)
-                            .map(Receiver::from)
-                            .toList()
-            ));
-            case SMS, PUSH -> throw new UnsupportedOperationException();
-        };
+        if (type == Message.Type.EMAIL) {
+            Sender<Email> emailSender = Sender.from(Email.from(sender));
+            List<Receiver<Email>> emailReceivers = receivers.stream()
+                    .map(receiver -> Receiver.of(Email.from(receiver.getReceiver()), receiver.getType()))
+                    .toList();
+            return (T) EmailTemplate.bind(id, name, content, useYn, emailSender, emailReceivers);
+        }
+        throw new UnsupportedOperationException();
     }
 }
