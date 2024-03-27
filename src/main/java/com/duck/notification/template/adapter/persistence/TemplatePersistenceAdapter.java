@@ -24,12 +24,12 @@ public class TemplatePersistenceAdapter implements TemplateManagePort {
     }
 
     @Override
-    public <T extends Template<?>> T update(T template) {
-        return null;
+    public <T extends Template<?>> T update(String id, T template) {
+        return templateJpaRepository.save(TemplateJpaEntity.fromTemplate(template)).toTemplate();
     }
 
     @Override
-    public <T extends Template<?>> T delete(T template) {
-        return null;
+    public void delete(String id) {
+        templateJpaRepository.deleteById(id);
     }
 }

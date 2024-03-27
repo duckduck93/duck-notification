@@ -23,6 +23,10 @@ class TemplateExchange {
     private final List<ReceiverExchange> receivers;
 
     public <T extends Template<?>> T toTemplate() {
+        return toTemplate(id);
+    }
+
+    public <T extends Template<?>> T toTemplate(String id) {
         if (type == Message.Type.EMAIL) {
             Sender<Email> emailSender = Sender.from(Email.from(sender));
             List<Receiver<Email>> emailReceivers = receivers.stream()

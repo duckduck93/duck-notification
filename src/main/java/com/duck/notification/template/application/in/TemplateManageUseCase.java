@@ -9,8 +9,8 @@ public interface TemplateManageUseCase {
 
     <T extends Template<?>> T create(T template);
 
-    <T extends Template<?>> T update(T template);
+    <T extends Template<?>> T update(String id, T template);
 
-    <T extends Template<?>> T delete(T template);
+    void delete(String id);
 
 }
