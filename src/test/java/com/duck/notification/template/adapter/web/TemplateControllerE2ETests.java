@@ -34,6 +34,7 @@ class TemplateControllerE2ETests {
                 "TEMPLATE_001",
                 "TEMPLATE_NAME_001",
                 Message.Type.EMAIL,
+                "Template Title",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 "sender@test.com",
                 List.of(
@@ -59,6 +60,7 @@ class TemplateControllerE2ETests {
                 "TEMPLATE_001",
                 "TEMPLATE_NAME_001",
                 Message.Type.EMAIL,
+                "Template Title",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 "sender@test.com",
                 List.of(
@@ -83,6 +85,7 @@ class TemplateControllerE2ETests {
                 id,
                 "TEMPLATE_NAME_UPDATED",
                 Message.Type.EMAIL,
+                "Template Title Updated",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 "sender-updated@test.com",
                 List.of(
@@ -109,6 +112,7 @@ class TemplateControllerE2ETests {
                 id,
                 "TEMPLATE_NAME_UPDATED",
                 Message.Type.EMAIL,
+                "Template Title Updated",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 "sender-updated@test.com",
                 List.of(

@@ -19,7 +19,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class TemplateJpaEntity {
+class TemplateJpaEntity {
     @Id
     private String id;
     private String name;
@@ -27,6 +27,7 @@ public class TemplateJpaEntity {
     @Enumerated(EnumType.STRING)
     private Message.Type type;
 
+    private String title;
     private String content;
     private Boolean useYn;
 
@@ -36,11 +37,11 @@ public class TemplateJpaEntity {
 
     public static <T extends Template<?>> TemplateJpaEntity fromTemplate(T template) {
         TemplateJpaEntity entity = new TemplateJpaEntity(
-                template.getId(), template.getName(), template.getType(), template.getContent(), template.getUseYn(),
+                template.getId(), template.getName(), template.getType(), template.getTitle(), template.getContent(), template.getUseYn(),
                 template.getSender().getValue().toString(), Collections.emptyList()
         );
         entity.receivers = template.getReceivers().stream()
-                .map(receiver -> TemplateReceiverJpaEntity.fromReceiver(receiver, entity))
+                .map(receiver -> TemplateReceiverJpaEntity.fromReceiver(entity, receiver))
                 .toList();
         return entity;
     }
@@ -51,7 +52,7 @@ public class TemplateJpaEntity {
             List<Receiver<Email>> emailReceivers = receivers.stream()
                     .map(receiver -> Receiver.of(Email.from(receiver.getReceiver()), receiver.getType()))
                     .toList();
-            return (T) EmailTemplate.bind(id, name, content, useYn, emailSender, emailReceivers);
+            return (T) EmailTemplate.bind(id, name, title, content, useYn, emailSender, emailReceivers);
         }
         throw new UnsupportedOperationException();
     }

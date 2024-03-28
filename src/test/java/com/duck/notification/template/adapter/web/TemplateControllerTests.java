@@ -14,7 +14,9 @@ import org.mockito.Mockito;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class TemplateControllerTests {
     private TemplateController templateController;
@@ -32,14 +34,16 @@ class TemplateControllerTests {
                 "TEMPLATE_ID_001",
                 "TEMPLATE_NAME_001",
                 Message.Type.EMAIL,
+                "Template Title",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 "sender@test.com",
                 List.of(
-                        new ReceiverExchange("receiver@test.com", Receiver.Type.TO),
+                        new ReceiverExchange("receiver1@test.com", Receiver.Type.TO),
                         new ReceiverExchange("receiver2@test.com", Receiver.Type.CC)
                 )
         );
 
+        when(templateManageUseCase.create(any())).thenAnswer((mock) -> mock.getArgument(0));
         templateController.createTemplate(templateCreateRequest);
 
         ArgumentCaptor<EmailTemplate> argumentCaptor = ArgumentCaptor.forClass(EmailTemplate.class);
@@ -48,6 +52,7 @@ class TemplateControllerTests {
         EmailTemplate template = argumentCaptor.getValue();
         Assertions.assertThat(template.getId()).isEqualTo("TEMPLATE_ID_001");
         Assertions.assertThat(template.getName()).isEqualTo("TEMPLATE_NAME_001");
+        Assertions.assertThat(template.getTitle()).isEqualTo("Template Title");
         Assertions.assertThat(template.getContent()).isEqualTo("<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>");
 
         Assertions.assertThat(template.getSender())
@@ -57,7 +62,7 @@ class TemplateControllerTests {
         Assertions.assertThat(template.getReceivers())
                 .usingRecursiveFieldByFieldElementComparator()
                 .containsExactly(
-                        Receiver.of(Email.from("receiver@test.com"), Receiver.Type.TO),
+                        Receiver.of(Email.from("receiver1@test.com"), Receiver.Type.TO),
                         Receiver.of(Email.from("receiver2@test.com"), Receiver.Type.CC)
                 );
     }

@@ -26,6 +26,8 @@ class TemplateManageServiceTests {
     void createMailTemplate() {
         EmailTemplate template = EmailTemplate.create(
                 "TEMPLATE_ID_001",
+                "TEMPLATE_NAME_001",
+                "Template Title",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 Sender.from(Email.from("sender@test.com")),
                 List.of(Receiver.of(Email.from("receiver@test.com"), Receiver.Type.TO))

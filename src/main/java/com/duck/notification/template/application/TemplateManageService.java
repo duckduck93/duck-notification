@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TemplateManageService implements TemplateManageUseCase {
+class TemplateManageService implements TemplateManageUseCase {
     private final TemplateManagePort templateManagePort;
 
     @Override

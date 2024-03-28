@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Adapter
 @RequiredArgsConstructor
-public class TemplatePersistenceAdapter implements TemplateManagePort {
+class TemplatePersistenceAdapter implements TemplateManagePort {
     private final TemplateJpaRepository templateJpaRepository;
 
     @Override

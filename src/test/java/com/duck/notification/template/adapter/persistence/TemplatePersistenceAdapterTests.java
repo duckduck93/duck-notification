@@ -33,10 +33,11 @@ class TemplatePersistenceAdapterTests {
         EmailTemplate template = EmailTemplate.create(
                 "TEMPLATE_ID_001",
                 "TEMPLATE_NAME_001",
+                "Template Title",
                 "<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>",
                 Sender.from(Email.from("sender@test.com")),
                 List.of(
-                        Receiver.of(Email.from("receiver@test.com"), Receiver.Type.TO),
+                        Receiver.of(Email.from("receiver1@test.com"), Receiver.Type.TO),
                         Receiver.of(Email.from("receiver2@test.com"), Receiver.Type.TO)
                 )
         );
@@ -46,8 +47,9 @@ class TemplatePersistenceAdapterTests {
         Assertions.assertThat(created).isInstanceOf(EmailTemplate.class);
         Assertions.assertThat(created.getId()).isEqualTo("TEMPLATE_ID_001");
         Assertions.assertThat(created.getName()).isEqualTo("TEMPLATE_NAME_001");
+        Assertions.assertThat(created.getTitle()).isEqualTo("Template Title");
         Assertions.assertThat(created.getContent()).isEqualTo("<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>");
         Assertions.assertThat(created.getSender().getValue()).hasToString("sender@test.com");
-        Assertions.assertThat(created.getReceivers().stream().map(Receiver::getValue).map(Email::toString).toList()).isEqualTo(List.of("receiver@test.com", "receiver2@test.com"));
+        Assertions.assertThat(created.getReceivers().stream().map(Receiver::getValue).map(Email::toString).toList()).isEqualTo(List.of("receiver1@test.com", "receiver2@test.com"));
     }
 }

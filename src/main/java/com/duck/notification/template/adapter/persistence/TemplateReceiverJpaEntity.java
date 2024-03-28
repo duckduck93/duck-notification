@@ -11,17 +11,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class TemplateReceiverJpaEntity {
+class TemplateReceiverJpaEntity {
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private TemplateJpaEntity template;
+
     private String receiver;
 
     @Enumerated(EnumType.STRING)
     private Receiver.Type type;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private TemplateJpaEntity template;
-
-    public static TemplateReceiverJpaEntity fromReceiver(Receiver<?> receiver, TemplateJpaEntity templateEntity) {
-        return new TemplateReceiverJpaEntity(receiver.getValue().toString(), receiver.getType(), templateEntity);
+    public static TemplateReceiverJpaEntity fromReceiver(TemplateJpaEntity templateEntity, Receiver<?> receiver) {
+        return new TemplateReceiverJpaEntity(null, templateEntity, receiver.getValue().toString(), receiver.getType());
     }
 }

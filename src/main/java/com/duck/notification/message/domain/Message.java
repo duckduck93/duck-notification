@@ -13,13 +13,14 @@ import java.util.List;
 public class Message<T> {
     private Long id;
     private Type type;
+    private String title;
     private String content;
 
     private Sender<T> sender;
     private List<Receiver<T>> receivers;
 
-    public static <T> Message<T> create(Type type, String content, Sender<T> sender, List<Receiver<T>> receivers) {
-        return new Message<>(IdGenerator.generate(Long.class), type, content, sender, receivers);
+    public static <T> Message<T> create(Type type, String title, String content, Sender<T> sender, List<Receiver<T>> receivers) {
+        return new Message<>(IdGenerator.generate(Long.class), type, title, content, sender, receivers);
     }
 
     public enum Type {

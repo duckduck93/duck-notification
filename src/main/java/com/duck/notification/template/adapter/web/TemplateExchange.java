@@ -18,6 +18,7 @@ class TemplateExchange {
     private final String id;
     private final String name;
     private final Message.Type type;
+    private final String title;
     private final String content;
     private final String sender;
     private final List<ReceiverExchange> receivers;
@@ -32,14 +33,14 @@ class TemplateExchange {
             List<Receiver<Email>> emailReceivers = receivers.stream()
                     .map(receiverRequest -> Receiver.of(Email.from(receiverRequest.getValue()), receiverRequest.getType()))
                     .toList();
-            return (T) EmailTemplate.create(id, name, content, emailSender, emailReceivers);
+            return (T) EmailTemplate.create(id, name, title, content, emailSender, emailReceivers);
         }
         throw new UnsupportedOperationException();
     }
 
     public static <T extends Template<?>> TemplateExchange from(T template) {
         return new TemplateExchange(
-                template.getId(), template.getName(), template.getType(), template.getContent(),
+                template.getId(), template.getName(), template.getType(), template.getTitle(), template.getContent(),
                 template.getSender().getValue().toString(),
                 template.getReceivers().stream().map(ReceiverExchange::from).toList()
         );
