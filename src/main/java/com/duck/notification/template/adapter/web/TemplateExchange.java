@@ -41,7 +41,7 @@ class TemplateExchange {
     public static <T extends Template<?>> TemplateExchange from(T template) {
         return new TemplateExchange(
                 template.getId(), template.getName(), template.getType(), template.getTitle(), template.getContent(),
-                template.getSender().getValue().toString(),
+                template.getSender().getPayload().toString(),
                 template.getReceivers().stream().map(ReceiverExchange::from).toList()
         );
     }

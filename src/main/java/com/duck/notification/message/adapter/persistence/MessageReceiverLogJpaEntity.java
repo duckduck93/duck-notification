@@ -1,4 +1,4 @@
-package com.duck.notification.template.adapter.persistence;
+package com.duck.notification.message.adapter.persistence;
 
 import com.duck.notification.message.domain.Receiver;
 import jakarta.persistence.*;
@@ -11,20 +11,20 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-class TemplateReceiverJpaEntity {
+class MessageReceiverLogJpaEntity {
     @Id
     @GeneratedValue
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private TemplateJpaEntity template;
+    private MessageLogJpaEntity messageLog;
 
     private String receiver;
 
     @Enumerated(EnumType.STRING)
     private Receiver.Type type;
 
-    public static TemplateReceiverJpaEntity fromReceiver(TemplateJpaEntity templateEntity, Receiver<?> receiver) {
-        return new TemplateReceiverJpaEntity(null, templateEntity, receiver.getPayload().toString(), receiver.getType());
+    public static MessageReceiverLogJpaEntity fromReceiver(MessageLogJpaEntity messageLogEntity, Receiver<?> receiver) {
+        return new MessageReceiverLogJpaEntity(null, messageLogEntity, receiver.getPayload().toString(), receiver.getType());
     }
 }

@@ -1,7 +1,5 @@
-package com.duck.notification.template.adapter.web;
+package com.duck.notification.core.web;
 
-import com.duck.notification.core.web.ClientException;
-import com.duck.notification.core.web.ServerException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +10,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 @Slf4j
-@RestControllerAdvice(basePackages = {"com.duck.notification.template.adapter.web"})
-class TemplateControllerAdvice {
+@RestControllerAdvice(basePackages = {"com.duck.notification"})
+class NotificationControllerAdvice {
 
     @ExceptionHandler(ClientException.class)
     public ResponseEntity<ExceptionResponse> handleClientException(ClientException exception) {

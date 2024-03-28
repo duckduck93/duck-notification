@@ -49,7 +49,7 @@ class TemplatePersistenceAdapterTests {
         Assertions.assertThat(created.getName()).isEqualTo("TEMPLATE_NAME_001");
         Assertions.assertThat(created.getTitle()).isEqualTo("Template Title");
         Assertions.assertThat(created.getContent()).isEqualTo("<h1>#{header}</h1><p>#{variable1}</p><p>#{variable2}</p>");
-        Assertions.assertThat(created.getSender().getValue()).hasToString("sender@test.com");
-        Assertions.assertThat(created.getReceivers().stream().map(Receiver::getValue).map(Email::toString).toList()).isEqualTo(List.of("receiver1@test.com", "receiver2@test.com"));
+        Assertions.assertThat(created.getSender().getPayload()).hasToString("sender@test.com");
+        Assertions.assertThat(created.getReceivers().stream().map(Receiver::getPayload).map(Email::toString).toList()).isEqualTo(List.of("receiver1@test.com", "receiver2@test.com"));
     }
 }

@@ -38,7 +38,7 @@ class TemplateJpaEntity {
     public static <T extends Template<?>> TemplateJpaEntity fromTemplate(T template) {
         TemplateJpaEntity entity = new TemplateJpaEntity(
                 template.getId(), template.getName(), template.getType(), template.getTitle(), template.getContent(), template.getUseYn(),
-                template.getSender().getValue().toString(), Collections.emptyList()
+                template.getSender().getPayload().toString(), Collections.emptyList()
         );
         entity.receivers = template.getReceivers().stream()
                 .map(receiver -> TemplateReceiverJpaEntity.fromReceiver(entity, receiver))

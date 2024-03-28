@@ -1,0 +1,17 @@
+spring:
+  docker:
+    compose:
+      lifecycle-management: start-only
+      skip.in-tests: false
+      start:
+        command: up
+
+  mail:
+    host: localhost
+    port: 1025
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false

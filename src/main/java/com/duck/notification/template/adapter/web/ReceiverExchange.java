@@ -12,6 +12,6 @@ class ReceiverExchange {
     private final Receiver.Type type;
 
     public static ReceiverExchange from(Receiver<?> receiver) {
-        return new ReceiverExchange(receiver.getValue().toString(), receiver.getType());
+        return new ReceiverExchange(receiver.getPayload().toString(), receiver.getType());
     }
 }

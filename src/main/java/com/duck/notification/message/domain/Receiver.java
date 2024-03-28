@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Receiver<T> {
-    private T value;
+    private T payload;
     private Type type;
 
     public static <T> Receiver<T> of(T value, Type type) {
