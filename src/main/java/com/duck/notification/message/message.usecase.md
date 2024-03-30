@@ -13,3 +13,24 @@
 1. 메시지 발송요청 (MessageRequest) - MessageController
 2. 메시지 발송
 3. 메시지 발송 로그 생성
+
+## 시스템 구성
+
+```mermaid
+flowchart LR
+    Controller(Controller)
+    RequestUseCase(MessageRequestUseCase)
+    RequestPort(MessageRequestPort)
+    SendUseCase(MessageSendUseCase)
+    SendPort(MessageSendPort)
+    DB[(Database)]
+    MQ>RabbitMQ]
+    Kafka>Kafka]
+    Controller --> RequestUseCase
+    Template --> RequestUseCase
+    RequestUseCase --> RequestPort
+    RequestPort -->|Direct| SendUseCase
+    RequestPort --> DB & MQ & Kafka --> SendUseCase
+    SendUseCase --> SendPort
+    SendPort --> SMTP & SMS & PUSH
+```

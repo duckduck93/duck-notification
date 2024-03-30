@@ -29,6 +29,6 @@ class EmailBrokerTests {
                         Receiver.of(Email.from("receiver3@test.com"), Receiver.Type.BCC)
                 )
         );
-        Assertions.assertDoesNotThrow(() -> emailBroker.broker(message));
+        Assertions.assertDoesNotThrow(() -> emailBroker.send(message));
     }
 }

@@ -4,7 +4,6 @@ import com.duck.notification.core.annotation.Adapter;
 import com.duck.notification.message.application.out.MessageRequestPort;
 import com.duck.notification.message.application.out.MessageSendPort;
 import com.duck.notification.message.domain.Message;
-import com.duck.notification.message.domain.MessageResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +19,10 @@ class MessageDirectAdapter implements MessageRequestPort, MessageSendPort {
     }
 
     @Override
-    public <T> MessageResult send(Message<T> message) {
+    public <T> MessageSendResult send(Message<T> message) {
         if (message.getType() == Message.Type.EMAIL) {
-            emailBroker.broker(message);
+            emailBroker.send(message);
+            return MessageSendResult.from(Status.SUCCESS);
         }
         throw new UnsupportedOperationException();
     }
